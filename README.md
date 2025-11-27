@@ -43,23 +43,7 @@ scapy network capture   entropy + AI   scoring + DB     HTTP/SSH/FTP   Flask + S
 
 ---
 
-## 📸 **Screenshots**
 
-### **Cyberpunk SOC Dashboard**
-
-![Dashboard Screenshot](./assets/dashboard.png)
-
-### **Live Packet Feed / Threat Logs**
-
-![Threat Log Screenshot](./assets/threats.png)
-
-### **Honeypot Activity Panel**
-
-![Honeypot Screenshot](./assets/honeypot.png)
-
-> *Screenshots folder placeholder included — upload actual images after capture.*
-
----
 
 ## ⚙️ **Installation**
 
