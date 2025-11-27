@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered IDS Dashboard | SOC Control Center</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span class="glow">AI-POWERED</span> INTRUSION DETECTION SYSTEM
+                </h1>
+                <div class="status-indicator">
+                    <span class="status-dot active"></span>
+                    <span class="status-text">SYSTEM ACTIVE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Panel -->
+        <section class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-icon">📡</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-packets">0</div>
+                    <div class="stat-label">Packets Captured</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚠️</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-threats">0</div>
+                    <div class="stat-label">Threats Detected</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🍯</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-honeypot">0</div>
+                    <div class="stat-label">Honeypot Hits</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🚫</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-blocked">0</div>
+                    <div class="stat-label">Blocked IPs</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <section class="main-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Entropy Chart -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Network Entropy Analysis</h2>
+                        <span class="panel-badge">Real-time</span>
+                    </div>
+                    <div class="panel-content">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Attack Simulator -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Attack Simulator</h2>
+                        <span class="panel-badge">Demo Mode</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="attack-buttons">
+                            <button class="attack-btn" data-attack="port_scan" onclick="triggerAttack('port_scan')">
+                                <span class="btn-icon">🔍</span>
+                                Port Scan
+                            </button>
+                            <button class="attack-btn" data-attack="sql_injection" onclick="triggerAttack('sql_injection')">
+                                <span class="btn-icon">💉</span>
+                                SQL Injection
+                            </button>
+                            <button class="attack-btn" data-attack="ddos" onclick="triggerAttack('ddos')">
+                                <span class="btn-icon">⚡</span>
+                                DDoS / UDP Flood
+                            </button>
+                            <button class="attack-btn" data-attack="malware_c2" onclick="triggerAttack('malware_c2')">
+                                <span class="btn-icon">🤖</span>
+                                Malware C2
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Threat Detection Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Threat Detection</h2>
+                        <div class="threat-stats">
+                            <span class="panel-badge danger" id="threat-count">0</span>
+                            <span class="panel-badge" id="packet-count">0</span>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div class="threat-counters">
+                            <div class="counter-item">
+                                <div class="counter-label">Threats</div>
+                                <div class="counter-value" id="threat-count-display">0</div>
+                            </div>
+                            <div class="counter-item">
+                                <div class="counter-label">Packets Scanned</div>
+                                <div class="counter-value" id="packet-count-display">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Packet Feed -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Live Packet Feed</h2>
+                        <span class="panel-badge">Streaming</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="log-container" id="packet-log">
+                            <div class="log-empty">Capturing packets...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Panel -->
+        <section class="bottom-panel">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Honeypot Activity Log</h2>
+                    <span class="panel-badge">HTTP:8888 | SSH:2222 | FTP:2121</span>
+                </div>
+                <div class="panel-content">
+                    <div class="log-container" id="honeypot-log">
+                        <div class="log-empty">Waiting for honeypot interactions...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
+
